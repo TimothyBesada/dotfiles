@@ -12,6 +12,13 @@ Ensure you have the following installed on your system
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+#### Add to Path
+
+```
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
 ### Install Requirements
 
 #### Terminal
@@ -26,15 +33,27 @@ brew install --cask wezterm
 brew install --cask font-fira-code-nerd-font
 ```
 
+
+#### Tmux
+
+
+```
+brew install tmux
+```
+
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
 #### Packages
 
 ```
-brew install git stow bat fzf eza fd lsd neovim powerlevel10k ripgrep tmux zoxide zsh-autosuggestions zsh-syntax-highlighting
+brew install git stow bat fzf eza fd lsd neovim powerlevel10k ripgrep zoxide zsh-autosuggestions zsh-syntax-highlighting tldr
 ```
 
 ## Stow dotfiles
 
-First, check out the dotfiles repo in your $HOME directory using git
+First, check out the dotfiles repo in your ~/ home directory using git
 
 ```
 git clone git@github.com/dreamsofautonomy/dotfiles.git
