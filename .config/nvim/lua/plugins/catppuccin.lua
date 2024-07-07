@@ -7,14 +7,13 @@ return {
   opts = {
     term_colors = true,
     transparent_background = true,
-    -- custom_highlights = function(colors)
-    --   return {
-    --     Normal = { bg = colors.none },
-    --     NormalFloat = { bg = colors.none },
-    --     WhichKeyFloat = { bg = colors.none },
-    --     WhichKey = { bg = colors.none },
-    --   }
-    -- end,
+    custom_highlights = function()
+      return {
+        Visual = { bg = "#473A5C" },
+        FlashCurrent = { fg = "#B1E6A7" },
+        FlashLabel = { fg = "#FAB387" },
+      }
+    end,
     integrations = {
       aerial = true,
       alpha = true,
