@@ -57,7 +57,7 @@ alias cd="z"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 
-# -- Use fd instead of fzf --
+# -- Use fd instead of find --
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -91,6 +91,9 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Fix fzf alt-c binding
+bindkey "ç" fzf-cd-widget
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
