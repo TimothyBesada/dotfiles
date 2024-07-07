@@ -6,3 +6,6 @@
 vim.opt.termguicolors = true
 vim.o.pumblend = 0
 vim.o.winblend = 0
+
+-- Cursor scrolloff
+vim.opt.scrolloff = 20
