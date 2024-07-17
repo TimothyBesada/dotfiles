@@ -17,6 +17,13 @@ end, { desc = "Maximize Toggle" })
 map("n", "<leader>m", function()
   LazyVim.toggle.maximize()
 end, { desc = "Maximize Toggle" })
+map("n", "<C-M-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-M-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+
+-- Delete to black hole
+map("n", "<leader>d", '"_d', { desc = "Delete to Black Hole" })
 
 -- Move Lines (visual and normal mode handled by mini.move)
 map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
@@ -52,3 +59,12 @@ map("i", "<M-BS>", "<Esc>d<cmd>lua require('spider').motion('b')<CR>i")
 -- Add new line while in normal mode
 map("n", "<leader><CR>", "O<Esc>", { desc = "Add empty line above" })
 map("n", "<CR>", "o<Esc>", { desc = "Add empty line below" })
+
+-- Select all
+map("n", "<leader>z", "ggVG", { desc = "Select all" })
+
+-- Select to end of line
+map("n", "‹", "v$", { desc = "Select to end of line" })
+
+-- Toggle Zen mode
+map("n", "÷", "<cmd>ZenMode<CR>", { desc = "Toggle Zen mode" })
