@@ -46,7 +46,7 @@ return {
       },
       -- Enable lsp cursor word highlighting
       document_highlight = {
-        enabled = true,
+        enabled = false,
       },
       -- add any global capabilities here
       capabilities = {
@@ -116,6 +116,12 @@ return {
               },
             },
           },
+        },
+        htmx = {
+          filetypes = { "html", "htmldjango" },
+        },
+        html = {
+          filetypes = { "html", "htmldjango" },
         },
       },
       -- you can do any additional lsp server setup here

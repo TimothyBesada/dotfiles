@@ -9,9 +9,9 @@ return {
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif vim.snippet.active({ direction = 1 }) then
+        -- if cmp.visible() then
+        -- cmp.select_next_item()
+        if vim.snippet.active({ direction = 1 }) then
           vim.schedule(function()
             vim.snippet.jump(1)
           end)
@@ -20,9 +20,9 @@ return {
         end
       end, { "i", "s" }),
       ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif vim.snippet.active({ direction = -1 }) then
+        -- if cmp.visible() then
+        -- cmp.select_prev_item()
+        if vim.snippet.active({ direction = -1 }) then
           vim.schedule(function()
             vim.snippet.jump(-1)
           end)
