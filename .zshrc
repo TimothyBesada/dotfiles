@@ -8,6 +8,8 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+ZSH_CUSTOM=$HOME/.config/zsh/custom
+
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 alias reload-zsh="source ~/.zshrc"
@@ -38,9 +40,6 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 # ---- Eza (better ls) -----
@@ -122,3 +121,42 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH=/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/Users/timothybesada/.pyenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
 export PATH=/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/Users/timothybesada/.pyenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
 export PATH=/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/Users/timothybesada/.pyenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
+
+export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
+
+
+eval "$(atuin init zsh)"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/Users/timothybesada/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# Key repeat
+if [[ $OSTYPE == darwin* ]]; then
+  # 15 is lowest setting on UI
+  # 8 was too fast causing duplicate keystrokes
+  # 10 i think this causes issues in bash cli when editing commands, not sure
+  defaults write -g InitialKeyRepeat -int 12
+
+  # 2 is lowest setting on UI
+  defaults write -g KeyRepeat -int 1
+
+  # allow holding key instead of mac default holding key to choose alternate key
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/timothybesada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/timothybesada/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc'; fi

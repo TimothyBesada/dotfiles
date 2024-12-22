@@ -11,12 +11,6 @@ map("n", "<leader>w-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>w!", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>!", "<C-W>v", { desc = "Split Window Right", remap = true })
-map("n", "<leader>wm", function()
-  LazyVim.toggle.maximize()
-end, { desc = "Maximize Toggle" })
-map("n", "<leader>m", function()
-  LazyVim.toggle.maximize()
-end, { desc = "Maximize Toggle" })
 map("n", "<C-M-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 map("n", "<C-M-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
@@ -33,18 +27,6 @@ map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 -- map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 -- map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 
--- floating terminal
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-map("n", "<leader>ft", lazyterm, { desc = "Terminal (Root Dir)" })
-map("n", "<leader>fT", function()
-  LazyVim.terminal()
-end, { desc = "Terminal (cwd)" })
-
--- Terminal Mappings
-map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-
 -- Spider motions
 map({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 map({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
@@ -54,17 +36,17 @@ map({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc
 map("i", "<M-Right>", "<Esc>l<cmd>lua require('spider').motion('w')<CR>i")
 map("i", "<M-Left>", "<Esc><cmd>lua require('spider').motion('b')<CR>i")
 map("i", "<M-Del>", "<Esc>ld<cmd>lua require('spider').motion('w')<CR>i")
-map("i", "<M-BS>", "<Esc>d<cmd>lua require('spider').motion('b')<CR>i")
+map("i", "<M-BS>", "<Esc>ld<cmd>lua require('spider').motion('b')<CR>i")
 
 -- Add new line while in normal mode
 map("n", "<leader><CR>", "O<Esc>", { desc = "Add empty line above" })
 map("n", "<CR>", "o<Esc>", { desc = "Add empty line below" })
 
--- Select all
-map("n", "<leader>z", "ggVG", { desc = "Select all" })
-
 -- Select to end of line
 map("n", "‹", "v$", { desc = "Select to end of line" })
 
--- Toggle Zen mode
-map("n", "÷", "<cmd>ZenMode<CR>", { desc = "Toggle Zen mode" })
+-- Open oil nvim
+map("n", "-", "<CMD>Oil --float<CR>", { desc = "Oil: Open parent directory" })
+
+-- Toggle inline git blame
+map("n", "<leader>gt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle inline git blame" })

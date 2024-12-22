@@ -1,21 +1,27 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
-    pyright = {
-      capabilities = (function()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-        return capabilities
-      end)(),
-      settings = {
-        python = {
-          analysis = {
-            useLibraryCodeForTypes = true,
-            diagnosticMode = "workspace",
-            diagnosticSeverityOverrides = {
-              reportUnusedVariable = "warning", -- or anything
+    inlay_hints = { enabled = false },
+    servers = {
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            disablerganizeImports = true,
+            hoverProvider = false,
+            analysis = {
+              typeCheckingMode = "basic", -- off, basic, standard, strict, all
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              autoImportCompletions = true,
+              diagnosticsMode = "workspace", -- workspace, openFilesOnly
+              diagnosticSeverityOverrides = {
+                -- reportUnusedImports = false,
+                -- reportUnusedVariable = false,
+                -- reportUnusedClass = "warning",
+                -- reportUnusedFunction = "warning",
+                reportUndefinedVariable = false, -- ruff handles this with F822
+              },
             },
-            typeCheckingMode = "basic",
           },
         },
       },

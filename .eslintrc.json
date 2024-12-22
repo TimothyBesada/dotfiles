@@ -1,0 +1,8 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:compat/recommended"],
+  "rules": {
+    "react/invalid-type": "off",
+    "jsx-no-undef": "off"
+  },
+  "plugins": ["compat"]
+}
