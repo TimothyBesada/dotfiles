@@ -48,5 +48,7 @@ map("n", "‹", "v$", { desc = "Select to end of line" })
 -- Open oil nvim
 map("n", "-", "<CMD>Oil --float<CR>", { desc = "Oil: Open parent directory" })
 
+map("n", "_", "<CMD>Oil<CR>", { desc = "Oil: Open parent directory" })
+
 -- Toggle inline git blame
 map("n", "<leader>gt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle inline git blame" })

@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  vscode = true,
   opts = {
     incremental_selection = {
       enable = true,

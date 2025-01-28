@@ -2,6 +2,7 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   priority = 1000,
+  vscode = true,
   opts = {
     term_colors = true,
     integrations = {
@@ -19,6 +20,12 @@ return {
     styles = {
       sidebars = "transparent",
       floats = "transparent",
+    },
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
     },
   },
 }
