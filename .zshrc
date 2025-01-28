@@ -160,3 +160,25 @@ if [ -f '/Users/timothybesada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/t
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+export EDITOR=nvim
+
+. "$HOME/.local/bin/env"
+
+# bun completions
+[ -s "/Users/timothybesada/.bun/_bun" ] && source "/Users/timothybesada/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

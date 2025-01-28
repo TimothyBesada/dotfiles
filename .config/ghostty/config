@@ -1,0 +1,10 @@
+theme = catppuccin-mocha
+
+macos-titlebar-style = hidden
+
+window-colorspace = display-p3
+
+window-padding-x = 0
+
+font-size = 18
+font-thicken = true
