@@ -39,7 +39,6 @@ brew install --cask wezterm
 brew install --cask font-fira-code-nerd-font
 ```
 
-
 #### Tmux
 
 ```

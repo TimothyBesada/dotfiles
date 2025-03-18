@@ -1,30 +1,89 @@
 return {
   {
     "yetone/avante.nvim",
+    lazy = true,
     event = "VeryLazy",
-    -- we want to use head for now, since the releases are not frequent
-    version = false,
+    build = "make",
+
     opts = {
-      hints = { enabled = false },
+      provider = "copilot",
+      auto_suggestions_provider = "copilot",
+      copilot = { model = "claude-3.5-sonnet" },
+      file_selector = {
+        provider = "snacks",
+        provider_opts = {},
+      },
+      sources = {
+        default = { "avante_commands", "avante_mentions", "avante_files" },
+        providers = {
+          avante_commands = {
+            name = "avante_commands",
+            module = "blink.compat.source",
+            score_offset = 90, -- show at a higher priority than lsp
+            opts = {},
+          },
+          avante_files = {
+            name = "avante_commands",
+            module = "blink.compat.source",
+            score_offset = 100, -- show at a higher priority than lsp
+            opts = {},
+          },
+          avante_mentions = {
+            name = "avante_mentions",
+            module = "blink.compat.source",
+            score_offset = 1000, -- show at a higher priority than lsp
+            opts = {},
+          },
+        },
+      },
     },
-    build = LazyVim.is_win() and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" or "make",
+
+    dependencies = {
+      "zbirenbaum/copilot.lua",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = function(_, ft)
+          vim.list_extend(ft, { "Avante" })
+        end,
+      },
+      {
+        "folke/which-key.nvim",
+        opts = {
+          spec = {
+            { "<leader>a", group = "ai" },
+          },
+        },
+      },
+    },
   },
+
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.file_types = vim.list_extend(opts.file_types or {}, { "Avante" })
-    end,
-    ft = function(_, ft)
-      vim.list_extend(ft, { "Avante" })
-    end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
+    "stevearc/dressing.nvim",
+    lazy = true,
     opts = {
-      spec = {
-        { "<leader>a", group = "ai" },
+      input = { enabled = false },
+      select = { enabled = false },
+    },
+  },
+
+  {
+    "saghen/blink.compat",
+    lazy = true,
+    opts = {},
+    config = function()
+      -- monkeypatch cmp.ConfirmBehavior for Avante
+      require("cmp").ConfirmBehavior = {
+        Insert = "insert",
+        Replace = "replace",
+      }
+    end,
+  },
+  {
+    "saghen/blink.cmp",
+    lazy = true,
+    opts = {
+      sources = {
+        compat = { "avante_commands", "avante_mentions", "avante_files" },
       },
     },
   },

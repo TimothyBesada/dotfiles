@@ -4,6 +4,14 @@
 
 local map = vim.keymap.set
 
+vim.keymap.set("n", "<leader>dk", function()
+  local c = vim.fn.getchar()
+  local charstr = vim.fn.getcharstr()
+  print("Decimal: " .. c)
+  -- print("Hex: " .. string.format("0x%x", c))
+  print("Charstr: " .. vim.inspect(charstr))
+end, { desc = "Debug key" })
+
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other Window", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
@@ -52,3 +60,45 @@ map("n", "_", "<CMD>Oil<CR>", { desc = "Oil: Open parent directory" })
 
 -- Toggle inline git blame
 map("n", "<leader>gt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle inline git blame" })
+
+-- Buffer navigation
+map("n", "<C-I>", "<CMD>bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<M-å>", "<CMD>bnext<CR>", { desc = "Next buffer" })
+
+-- For VSCode
+if vim.g.vscode then
+  vim.keymap.del("n", "<leader>l")
+  map({ "n", "v" }, "<leader>l", "<cmd>lua require('vscode').action('workbench.action.toggleSidebarVisibility')<CR>")
+  map({ "n", "v" }, "<leader>r", "<cmd>lua require('vscode').action('workbench.action.toggleAuxiliaryBar')<CR>")
+  -- Terminal
+  map({ "n", "v" }, "<leader>t", "<cmd>lua require('vscode').action('workbench.action.terminal.toggleTerminal')<CR>")
+
+  -- File explorer
+  map({ "n", "v" }, "<leader>e", "<cmd>lua require('vscode').action('workbench.files.action.focusFilesExplorer')<CR>")
+
+  -- Find
+  vim.keymap.del("n", "<Space><Space>")
+  map({ "n", "v" }, "<leader><leader>", "<cmd>lua require('vscode').action('find-it-faster.findFiles')<CR>")
+  map({ "n", "v" }, "<leader>ff", "<cmd>lua require('vscode').action('find-it-faster.findFiles')<CR>")
+  map({ "n", "v" }, "<leader>sg", "<cmd>lua require('vscode').action('find-it-faster.findWithinFiles')<CR>")
+
+  -- Code Actions
+  map({ "n", "v" }, "<leader>ca", "<cmd>lua require('vscode').action('editor.action.codeAction')<CR>")
+  map({ "n", "v" }, "<leader>cr", "<cmd>lua require('vscode').action('editor.action.rename')<CR>")
+  map({ "n", "v" }, "<leader>cR", "<cmd>lua require('vscode').action('renameFile')<CR>")
+
+  -- Clipboard
+  map({ "n", "v" }, "<leader>p", "<cmd>lua require('vscode').action('clipboard-manager.editor.pickAndPaste')<CR>")
+
+  -- LazyGit
+  vim.keymap.del("n", "<leader>gg")
+  map({ "n", "v" }, "<leader>gg", "<cmd>lua require('vscode').action('lazygit-vscode.toggle')<CR>")
+
+  -- Go to
+  map({ "n", "v" }, "gr", "<cmd>lua require('vscode').action('editor.action.goToReferences')<CR>")
+  map({ "n", "v" }, "gd", "<cmd>lua require('vscode').action('editor.action.goToDeclaration')<CR>")
+  map({ "n", "v" }, "gt", "<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<CR>")
+
+  -- File navigation
+  map({ "n", "v" }, "<leader>fb", "<cmd>lua require('vscode').action('workbench.action.navigateLast')<CR>")
+end
