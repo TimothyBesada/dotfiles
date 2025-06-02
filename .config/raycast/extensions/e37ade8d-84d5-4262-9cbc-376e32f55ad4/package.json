@@ -8,8 +8,16 @@
   "contributors": [
     "jdoconnor"
   ],
-  "categories": ["Documentation", "Developer Tools", "Productivity"],
+  "categories": [
+    "Documentation",
+    "Developer Tools",
+    "Productivity"
+  ],
   "license": "MIT",
+  "platforms": [
+    "macOS",
+    "Windows"
+  ],
   "commands": [
     {
       "name": "show-cheatsheets",

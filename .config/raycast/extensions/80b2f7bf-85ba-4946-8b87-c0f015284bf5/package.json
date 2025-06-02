@@ -12,9 +12,14 @@
     "erich2s",
     "ridemountainpig",
     "jor",
-    "garrill"
+    "garrill",
+    "olafvanmidden"
   ],
   "license": "MIT",
+  "platforms": [
+    "macOS",
+    "Windows"
+  ],
   "commands": [
     {
       "name": "search-documentation",

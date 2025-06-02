@@ -78,9 +78,13 @@ if vim.g.vscode then
 
   -- Find
   vim.keymap.del("n", "<Space><Space>")
-  map({ "n", "v" }, "<leader><leader>", "<cmd>lua require('vscode').action('find-it-faster.findFiles')<CR>")
-  map({ "n", "v" }, "<leader>ff", "<cmd>lua require('vscode').action('find-it-faster.findFiles')<CR>")
-  map({ "n", "v" }, "<leader>sg", "<cmd>lua require('vscode').action('find-it-faster.findWithinFiles')<CR>")
+  map({ "n", "v" }, "<leader><leader>", "<cmd>lua require('vscode').action('television.ToggleFileFinder')<CR>")
+  map({ "n", "v" }, "<leader>ff", "<cmd>lua require('vscode').action('television.ToggleFileFinder')<CR>")
+  map(
+    { "n", "v" },
+    "<leader>sg",
+    "<cmd>lua require('vscode').action('television.ToggleFileFinderWithArgs', { args = { 'text' } })<CR>"
+  )
 
   -- Code Actions
   map({ "n", "v" }, "<leader>ca", "<cmd>lua require('vscode').action('editor.action.codeAction')<CR>")
