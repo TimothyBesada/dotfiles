@@ -4,5 +4,8 @@ return {
     picker = {
       layout = { preset = "telescope" },
     },
+    actions = {
+      toggle_cwd = function() end,
+    },
   },
 }

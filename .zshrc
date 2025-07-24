@@ -15,6 +15,8 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
 
+alias lg="lazygit"
+alias p="pnpm"
 alias vim="nvim"
 alias oldvim="vim"
 alias ch="cht.sh"
@@ -38,8 +40,6 @@ fi
 # completion using arrow keys (based on history)
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
-
-
 
 
 # ---- Eza (better ls) -----
@@ -74,7 +74,6 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-source ~/fzf-git.sh/fzf-git.sh
 
 # --- setup fzf theme ---
 fg="#CBE0F0"
@@ -113,8 +112,6 @@ _fzf_comprun() {
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
 export PATH=/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
 export PATH=/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
 export PATH=/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
@@ -124,11 +121,6 @@ export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 
 eval "$(atuin init zsh)"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-
-
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # pnpm
 export PNPM_HOME="/Users/timothybesada/Library/pnpm"
@@ -152,13 +144,6 @@ if [[ $OSTYPE == darwin* ]]; then
   defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/timothybesada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/timothybesada/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/timothybesada/google-cloud-sdk/completion.zsh.inc'; fi
-
-
 # Yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -170,15 +155,6 @@ function y() {
 }
 
 export EDITOR=nvim
-
-. "$HOME/.local/bin/env"
-
-# bun completions
-[ -s "/Users/timothybesada/.bun/_bun" ] && source "/Users/timothybesada/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Ngrok
 if command -v ngrok &>/dev/null; then
@@ -199,7 +175,8 @@ export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
-# if [ -f ~/.zsh_dotenv ]; then
-# . ~/.zsh_dotenv
-# fi
+alias n='pnpm nx'
+alias code='cursor'

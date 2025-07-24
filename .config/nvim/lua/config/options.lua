@@ -26,6 +26,9 @@ vim.opt.laststatus = 3
 
 vim.g.snacks_animate = false
 
+-- Sets cwd folder as root
+vim.g.root_spec = { "cwd" }
+
 vim.diagnostic.config({
   signs = {
     text = {
