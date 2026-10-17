@@ -5,77 +5,60 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source "$HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-ZSH_CUSTOM=$HOME/.config/zsh/custom
+export XDG_CONFIG_HOME="$HOME/.config"
+export EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH"
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-alias reload-zsh="source ~/.zshrc"
-alias edit-zsh="nvim ~/.zshrc"
-
-alias lg="lazygit"
-alias p="pnpm"
-alias vim="nvim"
-alias oldvim="vim"
-alias ch="cht.sh"
-# history setup
+# ---- History ----
 HISTFILE=$HOME/.zhistory
 SAVEHIST=10000
 HISTSIZE=9999
-setopt share_history 
+setopt share_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+# ---- Completion ----
+FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
+autoload -Uz compinit
+compinit
 
-  autoload -Uz compinit
-  compinit
-fi
+# ---- Vi mode ----
+# Sourcing mode initializes immediately, so the fzf and atuin bindings below are not overwritten.
+export ZVM_INIT_MODE=sourcing
+export ZVM_TERM=xterm-ghostty
+source "$HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
-# completion using arrow keys (based on history)
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-
-
-# ---- Eza (better ls) -----
-
+# ---- Aliases ----
+alias reload-zsh="source ~/.zshrc"
+alias edit-zsh="nvim ~/.zshrc"
+alias lg="lazygit"
+alias vim="nvim"
+alias code="cursor"
 alias ls="eza --icons=always"
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
-
 alias cd="z"
 
-# ---- FZF -----
-
-# Set up fzf key bindings and fuzzy completion
+# ---- FZF ----
 eval "$(fzf --zsh)"
-
-# -- Use fd instead of find --
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
   fd --hidden --exclude .git . "$1"
 }
 
-# Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-
-# --- setup fzf theme ---
 fg="#CBE0F0"
 bg="#011628"
 bg_highlight="#143652"
@@ -90,12 +73,9 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
-# Fix fzf alt-c binding
+# Option+c on a Mac keyboard sends "ç" instead of Alt-c
 bindkey "ç" fzf-cd-widget
 
-# Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
   local command=$1
   shift
@@ -108,75 +88,19 @@ _fzf_comprun() {
   esac
 }
 
-
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-export PATH=/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
-export PATH=/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
-export PATH=/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/timothybesada/.cargo/bin
-
-export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
-
-
+# ---- Atuin (shell history) ----
 eval "$(atuin init zsh)"
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
-# pnpm
-export PNPM_HOME="/Users/timothybesada/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Key repeat
-if [[ $OSTYPE == darwin* ]]; then
-  # 15 is lowest setting on UI
-  # 8 was too fast causing duplicate keystrokes
-  # 10 i think this causes issues in bash cli when editing commands, not sure
-  defaults write -g InitialKeyRepeat -int 12
-
-  # 2 is lowest setting on UI
-  defaults write -g KeyRepeat -int 1
-
-  # allow holding key instead of mac default holding key to choose alternate key
-  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-fi
-
-# Yazi
+# ---- Yazi ----
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 
-export EDITOR=nvim
-
-# Ngrok
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
-
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-
-# Vi-mode
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
-export ZVM_TERM=xterm-ghostty
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
-
-export XDG_CONFIG_HOME="$HOME/.config"
-
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-alias n='pnpm nx'
-alias code='cursor'
+# Must be sourced last
+source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

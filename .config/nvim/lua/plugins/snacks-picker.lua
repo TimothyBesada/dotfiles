@@ -1,5 +1,6 @@
 return {
   "folke/snacks.nvim",
+  vscode = false,
   opts = {
     picker = {
       layout = { preset = "telescope" },

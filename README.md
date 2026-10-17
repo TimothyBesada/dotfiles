@@ -1,77 +1,36 @@
-# My dotfiles
+# dotfiles
 
-This directory contains the dotfiles for my system
+zsh, tmux, Neovim (LazyVim), Ghostty, and a few command-line tools for macOS.
 
-## Requirements
+## New Mac
 
-Ensure you have the following installed on your system
-
-### Brew
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```sh
+xcode-select --install
+git clone https://github.com/TimothyBesada/dotfiles.git ~/dotfiles
+~/dotfiles/install.sh
 ```
 
-#### Add to Path
+`install.sh` installs Homebrew, the command-line tools and apps listed at the top of the script, links the configs with GNU Stow, installs tmux and Neovim plugins, and sets fast key repeat. It skips anything that's already installed, so it's safe to run again. Files it would overwrite are moved to `~/.dotfiles-backup/<timestamp>/`.
 
-```
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
+After it finishes:
 
-### Install Requirements
+1. Log out and back in so the key repeat settings apply.
+2. Run `gh auth login`, and `atuin login` if you sync shell history.
+3. Import your Raycast settings from a Raycast export.
 
-#### Git
+## How the links work
 
-```
-brew install git
-```
+Every file in this repo except `README.md`, `install.sh`, and the git files gets linked to the same path under `~`. `~/.config` stays a real directory, and each tool's folder inside it links back here, for example `~/.config/nvim -> ~/dotfiles/.config/nvim`. Apps that write their own state into `~/.config` don't touch the repo.
 
-#### Terminal
+To add a config, move its folder into `~/dotfiles/.config/` and run `stow --restow .` from `~/dotfiles`.
 
-```
-brew install --cask wezterm
-```
-
-#### Font
-
-```
-brew install --cask font-fira-code-nerd-font
-```
-
-#### Tmux
-
-```
-brew install tmux
-```
-
-```
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-#### Packages
-
-```
-brew install stow bat fzf eza fd lsd neovim powerlevel10k ripgrep zoxide zsh-autosuggestions zsh-syntax-highlighting tldr
-```
-
-## Stow dotfiles
-
-First, check out the dotfiles repo in your ~/ home directory using git
-
-```
-git clone git@github.com/timothybesada/dotfiles.git
-cd dotfiles
-```
-
-then use GNU stow to create symlinks
-
-```
-stow .
-```
-
-### Casks
-
-```
-brew install --cask slack spotify obsidian zoom discord google-chrome@dev docker raycast vial
-```
+| Path | What it is |
+|---|---|
+| `.zshrc` | Shell: Powerlevel10k, vi mode, fzf, zoxide, atuin, eza |
+| `.p10k.zsh` | Powerlevel10k prompt, regenerate with `p10k configure` |
+| `.tmux.conf` | tmux, `Ctrl-a` prefix, plugins via TPM |
+| `.config/nvim` | LazyVim |
+| `.config/ghostty` | Terminal, Catppuccin Mocha |
+| `.config/borders` | Window borders, run by `brew services` |
+| `.config/bat`, `.config/yazi`, `.config/television` | Catppuccin themes and settings |
+| `.config/lazygit`, `.config/atuin`, `.config/gh/config.yml` | Tool settings |

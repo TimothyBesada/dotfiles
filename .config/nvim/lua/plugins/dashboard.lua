@@ -1,5 +1,6 @@
 return {
   "folke/snacks.nvim",
+  vscode = false,
   opts = {
     dashboard = {
       sections = {

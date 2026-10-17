@@ -1,7 +1,3 @@
-.config/gcloud
-.config/github-copilot
 .DS_Store
-.config/raycast/.DS_Store
-.config/yarn/global
-.config/.DS_Store
-.config/configstore/update-notifier-@aws-amplify
+.nvimlog
+.config/gh/hosts.yml

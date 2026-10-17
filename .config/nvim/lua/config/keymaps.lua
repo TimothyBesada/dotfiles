@@ -65,9 +65,12 @@ map("n", "<leader>gt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "
 map("n", "<C-I>", "<CMD>bprevious<CR>", { desc = "Previous buffer" })
 map("n", "<M-å>", "<CMD>bnext<CR>", { desc = "Next buffer" })
 
+-- map("v", "v", "", { desc = "" })
+
 -- For VSCode
 if vim.g.vscode then
   vim.keymap.del("n", "<leader>l")
+
   map({ "n", "v" }, "<leader>l", "<cmd>lua require('vscode').action('workbench.action.toggleSidebarVisibility')<CR>")
   map({ "n", "v" }, "<leader>r", "<cmd>lua require('vscode').action('workbench.action.toggleAuxiliaryBar')<CR>")
   -- Terminal
@@ -101,4 +104,18 @@ if vim.g.vscode then
 
   -- File navigation
   map({ "n", "v" }, "<leader>fb", "<cmd>lua require('vscode').action('workbench.action.navigateLast')<CR>")
+
+  -- Smart select
+  map(
+    { "v" },
+    "v",
+    "<cmd>lua require('vscode').action('editor.action.smartSelect.expand')<CR>",
+    { desc = "Expand selection" }
+  )
+  map(
+    { "v" },
+    "<backspace>",
+    "<cmd>lua require('vscode').action('editor.action.smartSelect.shrink')<CR>",
+    { desc = "Shrink selection" }
+  )
 end
